@@ -1,0 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<link rel="stylesheet" href="/css/efooter.css">
+<footer id="efooter">
+	Copyright ⓒ 2019 PK Electronics. All Rights Reserved.
+</footer>

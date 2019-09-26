@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MNG">
+   <resultMap id="MNGVo" type="com.pkfinal.mng.vo.MNGVo">
+      <result property="r_result"        column="R_RESULT"            javaType="string" />
+      <result property="r_date"         column="R_DATE"               javaType="string" />
+      <result property="f_date"         column="F_DATE"                javaType="string" />
+      <result property="fin_date"         column="FIN_DATE"            javaType="string" />
+      <result property="m_name"         column="M_NAME"               javaType="string" />
+      <result property="m_uid"          column="M_UID"                javaType="string" />
+      <result property="p_name"          column="P_NAME"            javaType="string" />
+      <result property="s_num"          column="S_NUM"                javaType="string" />
+      <result property="pr_date"         column="PR_DATE"            javaType="string" />
+      <result property="f_id"            column="F_ID"               javaType="string" />
+      <result property="e_id"             column="E_ID"                javaType="string" />
+      <result property="c_id"             column="C_ID"                javaType="string" />
+      <result property="fin_gbn"          column="FIN_GBN"            javaType="string" />
+      <result property="fin_msg"          column="FIN_MSG"            javaType="string" />
+      <result property="fin_pri"          column="FIN_PRI"            javaType="string" />
+      <result property="fin_grade"       column="FIN_GRADE"             javaType="string" />
+      <result property="pa_txt"          column="PA_TXT"            javaType="string" />
+      <result property="rs_id"          column="RS_ID"                javaType="string" />
+      <result property="r_id"             column="R_ID"                javaType="string" />
+      <result property="f_sname"          column="F_SNAME"            javaType="string" />
+      <result property="e_name"          column="E_NAME"            javaType="string" />
+      <result property="c_name"          column="C_NAME"            javaType="string" />
+      <result property="cc_date"          column="CC_DATE"            javaType="string" />
+      <result property="cc_reason"       column="CC_REASON"            javaType="string" />
+      <result property="max_r_id"          column="OUT_MAX_R_ID"         javaType="string" />
+      <result property="c_msg"          column="C_MSG"                javaType="string" />
+   </resultMap>
+    
+     <select id="MaxRSid" 
+         statementType="CALLABLE"
+         parameterType="hashmap"
+           resultType="com.pkfinal.mng.vo.MNGVo">
+      {CALL PKG_M_RESV.FIND_MAX_RS_ID_SELECT(   
+         #{ rs_id,         mode=IN,   jdbcType= VARCHAR},
+         #{ result,         mode=OUT,  jdbcType= CURSOR, javaType=ResultSet, resultMap=MNGVo }
+      )}
+    </select>
+    
+    <select id="checkMng" 
+         statementType="CALLABLE"
+         parameterType="hashmap"
+           resultType="com.pkfinal.mng.vo.MNGVo">
+      {CALL PKG_M_RESV.FIND_CHECK_MNG(   
+      #{ r_id,         mode=IN,   jdbcType= VARCHAR},
+      #{ m_uid,         mode=IN,   jdbcType= VARCHAR},
+      #{ e_count,         mode=OUT,   jdbcType= INTEGER},
+      #{ m_count,         mode=OUT,   jdbcType= INTEGER}
+       
+      )}
+    </select>
+    
+    <select id="selectManagement" 
+           statementType="CALLABLE"
+          parameterType="hashmap"
+            resultType="com.pkfinal.mng.vo.MNGVo"
+            >
+       {CALL PKG_M_RESV.SELECT_ENTIRED_RESVATION(
+       #{ nowpage,     mode=IN,  jdbcType= INTEGER},
+       #{ pagecount,   mode=IN,  jdbcType= INTEGER},
+       #{ totalcount,  mode=OUT, jdbcType= INTEGER},
+      #{ result,      mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MNGVo }
+      )}
+    </select>
+
+    <select id="selectManagementId" 
+           statementType="CALLABLE"
+          parameterType="hashmap"
+            resultType="com.pkfinal.mng.vo.MNGVo"
+            >
+       {CALL PKG_M_RESV.SELECT_ID_RESVATION(
+       #{ nowpage,     mode=IN,  jdbcType= INTEGER},
+       #{ pagecount,   mode=IN,  jdbcType= INTEGER},    
+       #{ m_uid,       mode=IN,  jdbcType= VARCHAR},
+       #{ r_id,        mode=IN,  jdbcType= VARCHAR},
+       #{ totalcount,  mode=OUT, jdbcType= INTEGER},
+      #{ result,      mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MNGVo }
+      )}
+    </select>
+    
+    <select id="detailSelectManagement" 
+           statementType="CALLABLE"
+          parameterType="hashmap"
+            resultType="com.pkfinal.mng.vo.MNGVo"
+            >
+       {CALL PKG_M_RESV.SELECT_DETAIL_RESVATION(
+       #{ m_uid,          mode=IN,   jdbcType= VARCHAR},
+       #{ rs_id,         mode=IN,   jdbcType= VARCHAR},
+       #{ r_id_count,      mode=OUT,  jdbcType= INTEGER},
+       #{ r_id_max,          mode=OUT,  jdbcType= VARCHAR},
+      #{ result,         mode=OUT,  jdbcType= CURSOR, javaType=ResultSet, resultMap=MNGVo }
+      )}
+    </select>
+    
+    <insert id="cancelManagement" 
+           statementType="CALLABLE"
+          parameterType="hashmap"
+            >
+       {CALL PKG_M_RESV.CANCEL_RESERVATION(       
+       #{ rs_id,       mode=IN,  jdbcType=VARCHAR},
+       #{ cc_reason, mode=IN,  jdbcType=VARCHAR},
+       #{ r_id,       mode=IN,  jdbcType=VARCHAR},
+       #{ rs_note,   mode=IN,  jdbcType=VARCHAR}
+      )}
+    </insert>
+   
+   <select id="RidSelect" 
+         statementType="CALLABLE"
+         parameterType="hashmap"
+           resultType="com.pkfinal.mng.vo.MNGVo">
+      {CALL PKG_M_RESV.RSID_SELECT(   
+       #{ rs_id,      mode=IN,   jdbcType= VARCHAR},
+      #{ result,  mode=OUT,  jdbcType= CURSOR, javaType=ResultSet, resultMap=MNGVo }
+      )}
+    </select>
+    
+    <resultMap id="DateVo" type="com.pkfinal.mng.vo.DateVo">
+      <result property="this_month"        column="THIS_MONTH"            javaType="string" />
+      <result property="next_month"      column="NEXT_MONTH"               javaType="string" />
+      <result property="current_date"      column="CURRENT_DATE"            javaType="string" />
+      <result property="next_month_day"   column="NEXT_MONTH_DAY"            javaType="string" />
+      <result property="com_id"           column="COM_ID"                  javaType="string" />
+   </resultMap>
+
+   <select id="MonthFind" 
+         statementType="CALLABLE"
+         parameterType="hashmap"
+           resultType="com.pkfinal.mng.vo.DateVo">
+      {CALL PKG_M_RESV.FIND_MONTH_SELECT(   
+         #{ result,  mode=OUT,  jdbcType= CURSOR, javaType=ResultSet, resultMap=DateVo }
+      )}
+    </select>
+   
+   <select id="DayFind" 
+         statementType="CALLABLE"
+         parameterType="hashmap"
+           resultType="com.pkfinal.mng.vo.DateVo">
+      {CALL PKG_M_RESV.FIND_DAY_SELECT(   
+         #{ this_month,   mode=IN,   jdbcType= VARCHAR},
+         #{ result,       mode=OUT,  jdbcType= CURSOR, javaType=ResultSet, resultMap=DateVo }
+      )}
+    </select>
+    
+    <select id="ProcessedDayFind" 
+         statementType="CALLABLE"
+         parameterType="hashmap"
+           resultType="com.pkfinal.mng.vo.DateVo">
+      {CALL PKG_M_RESV.FIND_PRDAY_SELECT(   
+         #{ current_date,   mode=IN,   jdbcType= VARCHAR},
+         #{ r_id,   mode=IN,   jdbcType= VARCHAR},
+         #{ result,   mode=OUT,  jdbcType= CURSOR, javaType=ResultSet, resultMap=DateVo }
+      )}
+    </select>
+
+    <select id="EnginSearch" 
+         statementType="CALLABLE"
+         parameterType="hashmap"
+           resultType="com.pkfinal.mng.vo.DateVo">
+      {CALL PKG_M_RESV.FIND_ENGINEER_SELECT(   
+         #{ current_date,   mode=IN,   jdbcType= VARCHAR},
+         #{ chk_date,       mode=IN,   jdbcType= VARCHAR},
+         #{ r_id,           mode=IN,   jdbcType= VARCHAR},
+         #{ result,         mode=OUT,  jdbcType= CURSOR, javaType=ResultSet, resultMap=DateVo }
+      )}
+    </select>
+    
+    <insert id="insertManagement" 
+           statementType="CALLABLE"
+          parameterType="hashmap"
+            >
+       {CALL PKG_M_RESV.INSERT_RESERVATION(       
+       #{ r_id,       mode=IN,  jdbcType=VARCHAR},
+       #{ m_uid,     mode=IN,  jdbcType=VARCHAR},
+       #{ e_id,       mode=IN,  jdbcType=VARCHAR},
+       #{ f_date,    mode=IN,  jdbcType=VARCHAR},
+       #{ f_time,    mode=IN,  jdbcType=VARCHAR},
+       #{ f_sname,   mode=IN,  jdbcType=VARCHAR},
+       #{ s_num,       mode=IN,  jdbcType=VARCHAR},
+       #{ p_name,    mode=IN,  jdbcType=VARCHAR},   
+       #{ pa_txt,    mode=IN,  jdbcType=VARCHAR},
+       #{ fin_pri,   mode=IN,  jdbcType=VARCHAR},
+       #{ fin_msg,   mode=IN,  jdbcType=VARCHAR},
+       #{ rs_note,   mode=IN,  jdbcType=VARCHAR},
+       #{ r_msg,   mode=IN,  jdbcType=VARCHAR}
+      )}
+    </insert>
+   
+    <update id="updateManagement" 
+           statementType="CALLABLE"
+          parameterType="hashmap"
+            >
+       {CALL PKG_M_RESV.UPDATE_RESERVATION(       
+       #{ r_id,       mode=IN,  jdbcType=VARCHAR},
+       #{ e_id,       mode=IN,  jdbcType=VARCHAR},
+       #{ f_date,    mode=IN,  jdbcType=VARCHAR},
+       #{ f_time,    mode=IN,  jdbcType=VARCHAR},
+       #{ rs_note,   mode=IN,  jdbcType=VARCHAR}
+      )}
+    </update>
+    
+   
+</mapper>

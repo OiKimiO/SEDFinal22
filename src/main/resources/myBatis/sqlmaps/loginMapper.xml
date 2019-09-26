@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Login">
+
+	<select id="LoginAction"
+	 parameterType="hashmap"
+	 resultType="com.pkfinal.main.members.vo.MembersVo">
+			SELECT *
+			FROM MEMBERS
+			WHERE M_UID = #{m_uid}
+			AND M_PWD = #{m_pwd}
+			AND M_GBN = #{m_gbn}
+			AND M_USE_DEL = 'Y'
+	</select>
+
+	
+	<resultMap id="MemberMap" type="com.pkfinal.main.members.vo.MembersVo">
+		<result property="m_id" column="M_ID" javaType="string" />
+		<result property="c_id" column="C_ID" javaType="string" />
+		<result property="m_uid" column="M_UID" javaType="string" />	
+		<result property="m_name" column="M_NAME" javaType="string" />
+		<result property="m_pwd" column="M_PWD" javaType="string" />
+		<result property="m_city" column="M_CITY" javaType="string"/>
+		<result property="m_gugun" column="M_GUGUN" javaType="string"/>
+		<result property="m_addr" column="M_ADDR" javaType="string"/> 
+		<result property="m_tel" column="M_TEL" javaType="string" />
+		<result property="m_email" column="M_EMAIL" javaType="string" />
+	</resultMap>
+	
+	<!-- 회원에 관련된 정보 뽑아내기 -->
+	<select id="MemDetail" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pkfinal.main.members.vo.MembersVo">
+		{CALL PKG_MEMBERS.PROC_MEM_DETAIL(
+		#{ m_id, mode=IN, jdbcType=VARCHAR },
+		#{ result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet,resultMap=MemberMap }
+		)}		
+	</select>
+	
+	
+	<!-- 아이디 찾기 할 떄 사용 -->
+		<select id="findid" statementType="CALLABLE" parameterType="hashmap" resultType="com.pkfinal.main.members.vo.MembersVo">
+            { CALL PKG_MEMBERS.PROC_MEM_FINDID (            
+            #{ m_name,       mode=IN,     jdbcType=VARCHAR },             
+            #{ m_tel,       mode=IN,     jdbcType=VARCHAR },             
+             #{ result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MemberMap}
+         )}
+         </select>     
+         
+         
+        <!-- 비밀번호 찾기 할 떄 사용 --> 
+       <select id="findPwd" statementType="CALLABLE" parameterType="hashmap" resultType="com.pkfinal.main.members.vo.MembersVo">
+            { CALL PKG_MEMBERS.PROC_MEM_FINPWD (            
+            #{ m_name,       mode=IN,     jdbcType=VARCHAR },
+            #{ m_uid,			mode=IN, 		jdbcType=VARCHAR },
+             #{ result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MemberMap}
+         )}
+         </select>  
+         
+      
+         
+         
+         
+              
+</mapper>

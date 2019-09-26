@@ -1,0 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix = "c" uri ="http://java.sun.com/jsp/jstl/core" %>
+
+<meta charset="utf-8" />
+	<table width="600" height = "25" align="center">
+		<tr>
+			<td width="500" height = "25" align="center">
+			
+			
+			
+			<c:set var = "showprev"     value="${pagePdsVo.isshowpageprev }"/>
+			<c:set var = "shownext"     value="${pagePdsVo.isshowpagenext }"/>
+			
+			<c:set var = "startnum"     value="${pagePdsVo.pagestartnum }"/>
+			<c:set var = "endnum"       value="${pagePdsVo.pageendnum }"/>
+			<c:set var = "pagegrpnum"   value="${pagePdsVo.pagegrpnum }"/>
+			
+			<c:set var="totalpagecount" value="${pagePdsVo.totalpagecount }"/>
+			<c:set var="totalcount"     value="${pagePdsVo.totalcount }"/>
+			<c:set var="pagecount"  	value="${pagePdsVo.pagecount }"/>
+			
+			<c:set var="nowpage"        value="${pagePdsVo.nowpage }"/>
+			<c:set var="prevnowpage"    value="${pagePdsVo.prevnowpage }"/>
+			<c:set var="nextnowpage"    value="${pagePdsVo.nextnowpage }"/>
+			<c:set var="c_id"    		value="${c_id}"/>
+			<c:set var="cate_id"    	value="${cate_id }"/>
+			
+		    <!-- ------------------------------------------------------------------ -->
+		    <c:if test="${showprev eq true }">
+		    	<a  id="pageSub"  href="/DetailEngineering?&nowpage=${prevnowpage}&pagecount=${pagecount}&pagegrpnum=${pagegrpnum-1}&cate_id=${cate_id}&c_id=${c_id}">${pagenum }
+		    	[이전 ${ totalpagecount }개]
+		    	</a> 
+		    </c:if>	
+		    <!-- ------------------------------------------------------------------ -->
+		    	<!-- 1 2 3 4 5 6 7 8 9 10 -->
+				<c:forEach var = "pagenum" begin="${startnum}" end = "${endnum}" step="1">
+					&nbsp;&nbsp;
+					<a id="pageNow" href="/DetailEngineering?&nowpage=${pagenum}&pagecount=${pagecount}&pagegrpnum=${pagegrpnum}&cate_id=${cate_id}&c_id=${c_id}">
+						<c:choose>
+							<c:when test="${showprev eq true }">
+								<b>${ pagenum }</b>
+							</c:when>
+							<c:otherwise>
+								<b>${ pagenum }</b>
+							</c:otherwise>
+						</c:choose>
+					</a>			
+					&nbsp;&nbsp;			
+				</c:forEach>
+			<!-- ------------------------------------------------------------------ -->
+		    <c:if test="${shownext eq true }">
+		    <a id="pageAdd"  href="/DetailEngineering?&nowpage=${nextnowpage}&pagecount=${pagecount}&pagegrpnum=${pagegrpnum+1}&cate_id=${cate_id}&c_id=${c_id}">${pagenum }
+		    	[다음 ${ totalpagecount }개]
+		    </a>
+		    </c:if>	
+		    <!-- ------------------------------------------------------------------ -->	
+			
+			
+			</td>		
+		</tr>
+		
+	</table>

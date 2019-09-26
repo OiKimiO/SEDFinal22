@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+/* 웹 폰트 */
+@font-face {
+	font-family: 'GoyangIlsan';
+	src:
+		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangIlsan.woff")
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+input {
+	border: none
+}
+
+/* #wrap {width:1024px} */
+.inwrap {
+	width: 80%
+}
+
+/* cheader css*/
+
+#header {
+	z-index: 10000;
+	background-color: #fff;
+}
+
+#header::after {
+	display: block;
+	content: '';
+	clear: both;
+}
+/* #header #mainNav:hover {height:200px;transition-duration: 2s} */
+.inwrap {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.inwrap::after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+.mainLogo {
+	float: left;
+	width: 25%;
+	height: 70px;
+	margin-right: 5%;
+}
+
+.mainLogo>a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	line-height: 70px
+}
+
+.mainLogo img {
+	width: 100%;
+}
+
+#mainNav {
+	width: 50%;
+	height: 70px;
+	float: right;
+	overflow: hidden;
+}
+
+#mainNav::after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+#mainNav>ul {
+	color: #ddd;
+}
+
+#mainNav>ul#mainMenu::after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+#mainNav>ul#mainMenu>li {
+	float: left;
+	line-height: 70px;
+	font-size: 2rem;
+	margin-right: 10%
+}
+
+#mainNav>ul#mainMenu>li:last-child {
+	margin-right: 0;
+}
+
+#mainNav>ul#mainMenu>li > a {
+	font-size:2rem
+}
+/* 
+#mainNav>ul#mainMenu>li>ul.subMenu>li {
+	line-height: 30px;
+	font-size: 2rem;
+} */
+
+#subNav {
+	width: 100%;
+	height: 40px;
+	background-color: #282c37;
+}
+
+#subNav::after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+#subNav ul#myMenu {
+	float: right;
+	height:40px
+}
+
+#subNav ul#myMenu>li {
+	float: left;
+	margin-right: 30px;
+	line-height: 40px;
+}
+
+#subNav ul#myMenu>li>a {
+	color: #fff;
+	font-size: 1.5rem
+}
+
+#subNav ul#myMenu>li:last-child {
+	margin-right: 0;
+}

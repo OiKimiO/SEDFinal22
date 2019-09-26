@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ 
+<mapper namespace="AppointMent">
+	<resultMap id="AppointMentMap" type="com.spring.appoint.vo.AppointVo">
+		<result property="r_id" column="R_ID" javaType="string"/>
+		 <result property="cate_name" column="CATE_NAME" javaType="string"/>
+		<result property="p_name" column="P_NAME" javaType="string" />
+		<result property="f_date" column="F_DATE" javaType="string" />
+		<result property="f_time" column="F_TIME" javaType="string" />
+		<result property="com_val" column="COM_VAL" javaType="string" />
+		<result property="r_result" column="R_RESULT" javaType="string" />
+	</resultMap>
+
+
+		<!-- <result property="m_id" column="R_ID" javaType="string"/> --> 
+	<!--마이페이지
+	 <select id="reservation" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.spring.appoint.vo.AppointVo">
+		{ CALL PKG_EMP.PROC_EMP_APPOINTMENT (
+		#{ m_id, mode=IN, jdbcType=VARCHAR },				
+		#{ result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet,resultMap=AppointMentMap }
+		)}
+	</select>
+-->
+
+
+
+   <select id="AppointList" statementType="CALLABLE"
+      parameterType="hashmap" resultType="com.spring.appoint.vo.AppointVo">
+      {call PKG_MEMBERS.PROC_MEM_APPOINTMENT(
+	      #{m_id,  		mode=IN,  jdbcType=VARCHAR },
+	      #{nowpage,    mode=IN,  jdbcType=INTEGER },
+	      #{pagecount,  mode=IN,  jdbcType=INTEGER },
+		  #{totalcount, mode=OUT, jdbcType=INTEGER },
+	      #{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap = AppointMentMap }
+      )}
+   </select>
+     
+   
+   
+   <!-- 내 예약/결과 조회 상세를 알고 싶을 때  -->
+   <resultMap id="AppResultMap" type="com.pkfinal.reservation.vo.AppResultVo">
+		<result property="r_id" column="R_ID" javaType="string" />
+		<result property="r_date" column="R_DATE" javaType="string" />
+		<result property="f_date" column="F_DATE" javaType="string" />
+		<result property="f_time" column="F_TIME" javaType="string" />
+		<result property="fin_date" column="FIN_DATE" javaType="string" />
+		<result property="fin_time" column="FIN_TIME" javaType="string" />
+		<result property="r_result" column="R_RESULT" javaType="string" />
+		<result property="cate_name" column="CATE_NAME" javaType="string" />			
+		<result property="p_name" column="P_NAME" javaType="string" />		
+		<result property="s_num" column="S_NUM" javaType="string" />
+		<result property="s_date" column="S_DATE" javaType="string" />
+		<result property="f_lname" column="F_LNAME" javaType="string" />
+		<result property="f_sname" column="F_SNAME" javaType="string" />
+		<result property="e_name" column="E_NAME" javaType="string" />
+		<result property="e_img" column="E_IMG" javaType="string"/>
+		<result property="c_name" column="C_NAME" javaType="string" />
+		<result property="pa_txt" column="PA_TXT" javaType="string"/>
+		<result property="fin_msg" column="FIN_MSG" javaType="string"/>
+		<result property="fin_pri" column="FIN_PRI" javaType="int"/>
+		<result property="cc_date" column="CC_DATE" javaType="string"/>
+		<result property="cc_reason" column="CC_REASON" javaType="string"/>
+		<result property="r_id_count" column="R_ID_COUNT" javaType="int"/>
+		<result property="r_msg" column="R_MSG" javaType="string"/>
+		<result property="rs_note" column="RS_NOTE" javaType="string"/>
+	</resultMap>
+		
+	
+	<select id="appresult" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pkfinal.reservation.vo.AppResultVo">
+		{ CALL PKG_MEMBERS.PROC_MEM_APPRESULT (
+			#{m_id, 		mode=IN, 	jdbcType=VARCHAR },
+			#{r_id, 		mode=IN,	jdbcType=VARCHAR },
+			#{r_result,		mode=IN, 	jdbcType=VARCHAR },		
+			#{r_id_count, 	mode=OUT, 	jdbcType=INTEGER },	
+			#{result, 		mode=OUT, 	jdbcType=CURSOR, 	javaType=ResultSet,resultMap=AppResultMap }
+		)}
+	</select>
+	
+	
+	<insert id="AppDetailCancel">
+	   { CALL PKG_MEMBERS.PROC_MEM_APPDETAILCANCEL (             
+             #{ r_id, mode=IN, jdbcType=VARCHAR },
+             #{cc_reason, mode=IN, jdbcType=VARCHAR }
+           
+           )}			
+	</insert>	
+   
+   	
+   		<!--예약확인 ->제품명으로 검색했을 떄 화면--> 
+   	<select id="mypagePname" statementType="CALLABLE"
+      parameterType="hashmap" resultType="com.spring.appoint.vo.AppointVo">
+      {call PKG_MEMBERS.PROC_MEM_MYPAGEPNAME(
+     	#{m_id,  		mode=IN,  jdbcType=VARCHAR },
+    	#{p_name,  		mode=IN,  jdbcType=VARCHAR },
+     	#{nowpage,    	mode=IN,  jdbcType=INTEGER },
+     	#{pagecount, 	mode=IN,  jdbcType=INTEGER },
+  		#{totalcount, 	mode=OUT, jdbcType=INTEGER },
+     	#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap = AppointMentMap }
+      )}
+   </select>
+   	
+   	
+   	<select id="mypageRid" statementType="CALLABLE"
+      parameterType="hashmap" resultType="com.spring.appoint.vo.AppointVo">
+      {call PKG_MEMBERS.PROC_MEM_MYPAGERID(
+      	#{m_id,  		mode=IN,  jdbcType=VARCHAR },
+     	#{r_id,  		mode=IN,  jdbcType=VARCHAR },
+      #{nowpage,    mode=IN,  jdbcType=INTEGER },
+      #{pagecount,  mode=IN,  jdbcType=INTEGER },
+	  #{totalcount, mode=OUT, jdbcType=INTEGER },
+      #{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap = AppointMentMap }
+      )}
+      
+      
+   </select>
+   	 	<select id="mypageCateName" statementType="CALLABLE"
+      parameterType="hashmap" resultType="com.spring.appoint.vo.AppointVo">
+      {call PKG_MEMBERS.PROC_MEM_MYPAGECATENAME(
+      	#{m_id,  		mode=IN,  jdbcType=VARCHAR },
+     	#{cate_name,	mode=IN,  jdbcType=VARCHAR },
+      #{nowpage,    mode=IN,  jdbcType=INTEGER },
+      #{pagecount,  mode=IN,  jdbcType=INTEGER },
+	  #{totalcount, mode=OUT, jdbcType=INTEGER },
+      #{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap = AppointMentMap }
+      )}
+   </select>
+   
+   
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Reservation">
+	<resultMap type="com.pkfinal.reservation.vo.ReservationVo" id="ReservationMap">
+		<result property="r_id"  	column="R_ID" 		javaType="String"/>
+		<result property="m_id"  	column="M_ID" 		javaType="String"/>
+		<result property="cate_id"  column="CATE_ID" 	javaType="String"/>
+		<result property="e_id"  	column="E_ID" 		javaType="String"/>
+		<result property="c_id"  	column="C_ID" 		javaType="String"/>
+		<result property="r_date"  	column="R_DATE" 	javaType="String"/>
+		<result property="f_date"  	column="F_DATE" 	javaType="String"/>
+		<result property="f_time"  	column="F_TIME" 	javaType="String"/>
+		<result property="f_id"  	column="F_ID" 		javaType="String"/>
+		<result property="r_msg"  	column="R_MSG" 		javaType="String"/>
+	</resultMap>
+	
+	<insert id="RWrite"
+		statementType="CALLABLE"
+		parameterType="hashmap">
+		{CALL PKG_RESERVATION.PROC_RESERVATION_INSERT(
+			#{r_msg,		mode=IN,		jdbcType=VARCHAR}
+			,#{m_id,		mode=IN,		jdbcType=VARCHAR}
+			,#{c_id,		mode=IN,		jdbcType=VARCHAR}
+			,#{cate_id,		mode=IN,		jdbcType=VARCHAR}
+			,#{f_id,		mode=IN,		jdbcType=VARCHAR}
+			,#{f_date,		mode=IN,		jdbcType=VARCHAR}
+			,#{f_time,		mode=IN,		jdbcType=VARCHAR}
+			,#{e_id,		mode=IN,		jdbcType=VARCHAR}
+		)}
+	</insert>
+
+	<resultMap id="AppResultMap1" type="com.pkfinal.reservation.vo.AppResultVo">
+		<result property="s_num"  	column="S_NUM" 		javaType="String"/>
+		<result property="p_id"  	column="P_ID" 		javaType="String"/>
+		<result property="fin_gbn"  column="FIN_GBN" 	javaType="String"/>
+	</resultMap>
+	
+	<insert id="RWriteResult"
+		statementType="CALLABLE"
+		parameterType="hashmap">
+		{CALL PKG_RESERVATION.PROC_RESERVATION_RESULT_INSERT(
+			#{s_num,	mode=IN,		jdbcType=VARCHAR},
+			#{p_id,		mode=IN,		jdbcType=VARCHAR},
+			#{fin_gbn,	mode=IN,		jdbcType=VARCHAR}
+			
+		)}
+	</insert>
+	
+
+
+</mapper>

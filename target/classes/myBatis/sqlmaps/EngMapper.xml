@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Eng">
+	<resultMap id="EngVo" type="com.pkfinal.eng.vo.EngVo">
+		<result property="e_id"     		column="E_ID"     		 	 javaType="string" />
+		<result property="e_pwd"   			column="E_PWD"    		 	 javaType="string" />
+		<result property="e_name"   		column="E_NAME"    	 	 	 javaType="string" />
+		<result property="cate_id"   		column="CATE_ID"       	 	 javaType="string" />
+		<result property="e_tel"    		column="E_TEL"     		 	 javaType="string" />
+		<result property="c_id"    			column="C_ID"     		 	 javaType="string" />
+		<result property="e_img"    		column="E_IMG"     		 	 javaType="string" />
+
+	</resultMap>
+
+
+
+	<insert id="insertEngineer" 
+	 		 statementType="CALLABLE"
+			 parameterType="hashmap"
+	         >
+	 	{CALL PKG_ENG.INSERT_ENGINEER(
+	 	#{ e_pwd,  mode=IN,  jdbcType=VARCHAR},
+	 	#{ e_name,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ cate_id,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ e_tel,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ c_id,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ e_img,   mode=IN,  jdbcType=VARCHAR}
+			)}
+	 </insert>
+	 
+	 	<select id="selectEngineer" 
+	 		 statementType="CALLABLE"
+			 parameterType="hashmap"
+	         resultType="com.pkfinal.eng.vo.EngVo"
+	         >
+	 	{CALL PKG_ENG.SELECT_ENGINEER(
+	 	#{ nowpage,     mode=IN,  jdbcType= INTEGER},
+	 	#{ pagecount,   mode=IN,  jdbcType= INTEGER},	 	
+	 	#{ cate_id,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ c_id,     mode=IN,  jdbcType=VARCHAR},
+	 	#{ totalcount,  mode=OUT, jdbcType= INTEGER},
+		#{ result,   mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=EngVo }
+		)}
+	 </select>
+	 
+	 <update id="UpdateEngineer" 
+	 		 statementType="CALLABLE"
+			 parameterType="hashmap"
+	         >
+	 	{CALL PKG_ENG.UPDATE_ENGINEER(	 	
+	 	#{ e_id,  mode=IN,  jdbcType=VARCHAR},
+	 	#{ e_pwd,  mode=IN,  jdbcType=VARCHAR},
+	 	#{ cate_id,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ e_tel,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ c_id,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ e_img,   mode=IN,  jdbcType=VARCHAR}
+		)}
+	 </update>
+
+	<delete id="deleteEngineer" 
+	 		 statementType="CALLABLE"
+			 parameterType="hashmap"
+	         >
+	 	{CALL PKG_ENG.DELETE_ENGINEER(
+	 	#{ e_id,  mode=IN,  jdbcType=VARCHAR}
+		)}
+	 </delete>
+	 
+	 
+ 	<select id="detailSelectEngineer" 
+	 		 statementType="CALLABLE"
+			 parameterType="hashmap"
+	         resultType="com.pkfinal.eng.vo.EngVo"
+	         >
+	 	{CALL PKG_ENG.SELECT_DETAIL_ENGINEER(
+	 	#{ nowpage,     mode=IN,  jdbcType= INTEGER},
+	 	#{ pagecount,   mode=IN,  jdbcType= INTEGER},	 	
+	 	#{ cate_id,   mode=IN,  jdbcType=VARCHAR},
+	 	#{ c_id,     mode=IN,  jdbcType=VARCHAR},
+	 	#{ totalcount,  mode=OUT, jdbcType= INTEGER},
+		#{ result,   mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=EngVo }
+		)}
+	 </select>
+	
+ 	<select id="idSelectEngineer" 
+	 		 statementType="CALLABLE"
+			 parameterType="hashmap"
+	         resultType="com.pkfinal.eng.vo.EngVo"
+	         >
+	 	{CALL PKG_ENG.ID_SELECT_ENGINEER(
+	 	#{ e_id,  mode=IN,  jdbcType=VARCHAR},
+		#{ result,   mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=EngVo }
+		)}
+	 </select>
+	
+	<select id="selectCenter" 
+	 		 statementType="CALLABLE"
+			 parameterType="hashmap"
+	         resultType="com.pkfinal.eng.vo.EngVo"
+	         >
+	 	{CALL PKG_ENG.SELECT_CENTER(
+		#{ result,   mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=EngVo }
+		)}
+	 </select>
+	
+	<select id="selectCate" 
+	 		 statementType="CALLABLE"
+			 parameterType="hashmap"
+	         resultType="com.pkfinal.eng.vo.EngVo"
+	         >
+	 	{CALL PKG_ENG.SELECT_CATE(
+		#{ result,   mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=EngVo }
+		)}
+	 </select>
+
+
+
+</mapper>

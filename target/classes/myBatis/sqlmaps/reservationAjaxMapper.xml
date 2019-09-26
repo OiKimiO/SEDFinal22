@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReservationAjax">
+	
+
+	<resultMap type="com.pkfinal.engineer.vo.EngineerVo" id="EngineerMap">
+		<result property="e_id" 		column="E_ID" 		javaType="string" />
+		<result property="e_pwd" 		column="E_PWD" 		javaType="string" />
+		<result property="e_name" 		column="E_NAME" 	javaType="string" />
+		<result property="c_id" 		column="C_ID" 		javaType="string" />
+		<result property="cate_id" 		column="CATE_ID" 	javaType="string" />
+		<result property="e_tel" 		column="E_TEL" 		javaType="string" />
+		<result property="e_img" 		column="E_IMG" 		javaType="string" />
+		<result property="e_use_del" 	column="E_USE_DEL" 	javaType="string" />
+		<result property="com_seq" 		column="COM_SEQ" 	javaType="int" />
+	
+	</resultMap>
+	
+	<resultMap type="com.pkfinal.commoncode.vo.CommoncodeVo" id="CommoncodeMap">
+			<result property="com_id" 		column="COM_ID" 	javaType="string" />
+			<result property="com_val" 		column="COM_VAL" 	javaType="string" />
+			<result property="com_seq" 		column="COM_SEQ" 	javaType="int" />
+	</resultMap>
+
+
+	<select id="CommonCodeChoice"
+			parameterType="hashmap"
+			resultType="com.pkfinal.commoncode.vo.CommoncodeVo">
+		SELECT DISTINCT(S1.COM_VAL) AS COM_VAL, S1.COM_ID
+		 FROM COMMON_CODE S1, ENGINEER S2
+		 WHERE S1.COM_SEQ = S2.COM_SEQ
+		 AND S2.E_USE_DEL NOT IN 'N'
+		 AND (S1. COM_VAL, S2.E_ID) NOT IN
+		(
+		    SELECT T2.COM_VAL, T3.E_ID
+		     FROM RESERVATION T1, COMMON_CODE T2, ENGINEER T3
+		     WHERE T1.F_TIME = T2.COM_ID
+		     AND T1.E_ID = T3.E_ID
+		     AND T1.F_DATE = #{f_date}
+		)
+		ORDER BY COM_VAL
+	</select>
+	
+	<!-- 기사 선택 -->
+	<select id="EngineerChoice"
+			parameterType="hashmap"
+			resultType="com.pkfinal.engineer.vo.EngineerVo">
+		SELECT S2.E_NAME, S2.E_ID, S2.E_IMG, S1.COM_ID
+		 FROM COMMON_CODE S1, ENGINEER S2
+		 WHERE S1.COM_SEQ = S2.COM_SEQ
+		 AND S1.COM_VAL = #{com_val}
+		 AND S2.C_ID = #{c_id}
+		 AND S2.CATE_ID = #{cate_id}
+		 AND S2.E_USE_DEL NOT IN 'N'
+		 AND (S1. COM_VAL, S2.E_ID) NOT IN
+		(
+		    SELECT T2.COM_VAL, T3.E_ID
+		     FROM RESERVATION T1, COMMON_CODE T2, ENGINEER T3
+		     WHERE T1.F_TIME = T2.COM_ID
+		     AND T1.E_ID = T3.E_ID
+		   	 AND T1.F_DATE = #{f_date}
+		)
+		ORDER BY S2.E_ID
+	</select>
+	
+
+</mapper>

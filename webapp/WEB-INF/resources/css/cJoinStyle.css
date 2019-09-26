@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+
+
+
+/* 작성 테이블 css*/
+.sec-join #tbl-noticeWrite {
+	margin-bottom: 20px
+}
+
+.sec-join #tbl-noticeWrite .td-title {
+	border-top: 2px solid black
+}
+
+.sec-join #tbl-noticeWrite th, .sec-join #tbl-noticeWrite td {
+	line-height: 50px;
+	font-size: 1.7rem;
+	border-bottom: 1px solid black
+}
+
+.sec-join #tbl-noticeWrite th {
+	width: 30%;
+	background-color: #f2f4f6
+}
+
+.sec-join #tbl-noticeWrite td {
+	padding-left: 1.5rem;
+}
+
+.sec-join #tbl-noticeWrite tr:nth-child(3) td {
+	padding: 1.5rem
+}
+
+.sec-join #tbl-noticeWrite #cont {
+	width: 100%;
+	height: 400px
+}
+
+
+
+/* 게시판류 글쓰기, 저장, 목록으로 가는 버튼 */
+.sec-join #btnNoticeBox {
+	float: right
+} /* 버튼담는 상자 */
+
+.sec-join #btnNoticeWrite {
+	display: inline-block;
+	padding: 10px;
+	font-size: 1.7rem;
+	border: 1.5px solid black
+}
+
+.sec-join #btnNoticeList {
+	display: inline-block;
+	padding: 10px;
+	font-size: 1.7rem;
+	border: 1.5px solid black
+}
+
+.sec-join #btnSubmit {
+	display: inline-block;
+	padding: 10px;
+	font-size: 1.7rem;
+	border: 1.5px solid black;
+	background-color: #fff
+}
+
+

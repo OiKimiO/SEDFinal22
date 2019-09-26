@@ -1,0 +1,183 @@
+@charset "UTF-8";
+
+/* 리스트 테이블 css*/
+.sec-board #tbl-noticeList {
+	margin-bottom: 20px
+}
+
+.sec-board #tbl-noticeList th, .sec-board #tbl-noticeList td {
+	line-height: 50px;
+	border-bottom: 1px solid black;
+}
+
+.sec-board #tbl-noticeList .th-title {
+	background-color: #f2f4f6;
+	font-size: 1.7rem;
+	border-top: 2px solid black
+}
+
+.sec-board #tbl-noticeList .th-title:first-child {
+	width: 10%;
+}
+
+.sec-board #tbl-noticeList .th-title:nth-child(2) {
+	width: 60%
+}
+
+.sec-board #tbl-noticeList .th-title:nth-child(3) {
+	width: 15%
+}
+
+.sec-board #tbl-noticeList .th-title:nth-child(4) {
+	width: 15%
+}
+
+.sec-board #tbl-noticeList td {
+	font-size: 1.5rem;
+	text-align: center
+}
+
+.sec-board #tbl-noticeList td:nth-child(2) {
+	text-align: left;
+	padding-left: 2rem;
+	font-weight: bold
+}
+
+
+
+/* 상세보기 테이블 css */
+
+.sec-board #tbl-noticeRead {
+	margin-bottom: 20px
+}
+
+.sec-board #tbl-noticeRead th, .sec-board #tbl-noticeRead td {
+	font-size: 1.7rem;
+	line-height: 50px;
+	border-bottom: 1px solid black
+}
+
+.sec-board #tbl-noticeRead .td-title {
+	border-top: 2px solid black
+}
+
+.sec-board #tbl-noticeRead tr:first-child td:nth-child(odd), .sec-board #tbl-noticeRead tr:nth-child(2) td:first-child,
+	.sec-board #tbl-noticeRead tr:nth-child(3) td:first-child {
+	background-color: #f2f4f6;
+	text-align: center;
+	font-weight: bold
+}
+
+.sec-board #tbl-noticeRead tr td:nth-child(even) {
+	line-height: 1.7rem;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem
+}
+
+
+
+/* 작성 테이블 css*/
+.sec-board #tbl-noticeWrite {
+	margin-bottom: 20px
+}
+
+.sec-board #tbl-noticeWrite .td-title {
+	border-top: 2px solid black
+}
+
+.sec-board #tbl-noticeWrite th, .sec-board #tbl-noticeWrite td {
+	line-height: 50px;
+	font-size: 1.7rem;
+	border-bottom: 1px solid black
+}
+
+.sec-board #tbl-noticeWrite th {
+	width: 15%;
+	background-color: #f2f4f6
+}
+
+.sec-board #tbl-noticeWrite td {
+	padding-left: 1.5rem;
+}
+
+.sec-board #tbl-noticeWrite tr:nth-child(3) td {
+	padding: 1.5rem
+}
+
+.sec-board #tbl-noticeWrite #cont {
+	width: 100%;
+	height: 400px
+}
+
+
+
+/* 게시판류 글쓰기, 저장, 목록으로 가는 버튼 */
+.sec-board #btnNoticeBox {
+	float: right
+} /* 버튼담는 상자 */
+
+.sec-board #btnNoticeWrite {
+	display: inline-block;
+	padding: 10px;
+	font-size: 1.7rem;
+	border: 1.5px solid black
+}
+
+.sec-board #btnNoticeList {
+	display: inline-block;
+	padding: 10px;
+	font-size: 1.7rem;
+	border: 1.5px solid black
+}
+
+.sec-board #btnSubmit {
+	display: inline-block;
+	padding: 10px;
+	font-size: 1.7rem;
+	border: 1.5px solid black;
+	background-color: #fff
+}
+
+
+/* Q & A 리스트 */
+.sec-qna #tbl-qnaList {
+	margin-bottom: 20px
+}
+
+.sec-qna #tbl-qnaList th, .sec-qna #tbl-noticeList td {
+	line-height: 50px;
+	border-bottom: 1px solid black;
+}
+
+.sec-qna #tbl-qnaList .th-title {
+	background-color: #f2f4f6;
+	font-size: 1.7rem;
+	border-top: 2px solid black
+}
+
+.sec-qna #tbl-qnaList .th-title:first-child {
+	width: 10%;
+}
+
+.sec-qna #tbl-qnaList .th-title:nth-child(2) {
+	width: 60%
+}
+
+.sec-qna #tbl-qnaList .th-title:nth-child(3) {
+	width: 15%
+}
+
+.sec-qna #tbl-qnaList .th-title:nth-child(4) {
+	width: 15%
+}
+
+.sec-qna #tbl-qnaList td {
+	font-size: 1.5rem;
+	text-align: center
+}
+
+.sec-qna #tbl-qnaList td:nth-child(2) {
+	text-align: left;
+	padding-left: 2rem;
+	font-weight: bold
+}

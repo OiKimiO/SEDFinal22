@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+#efooter {
+	width: 100%;
+	line-height: 70px;
+	text-align: center;
+	background-color: #282c37;
+	color:#44547F;
+	font-size:1.7rem;
+	clear:both
+}
+
+
+

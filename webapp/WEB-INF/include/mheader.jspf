@@ -1,0 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>머리글</title>
+<script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script>
+ $(function(){
+	 $.ajax({
+		url   : '/selectMenuButton'  
+		,type : 'post' 
+		,data : {
+			mn_gbn : 'GBN01'
+		}
+		,dataType : 'json'
+		,success  : function(data){
+			$('#mainMenu').html('');
+			for(var i = 0; i<data.length; i++){
+				$('#accordian').append('<dl id="Dlid"></dl>');	  				
+				$('#Dlid').append('<dt><span></span><a class = "classA" href="' + data[i].mn_url + '">' + data[i].mn_name + '</a></dt>');		
+				
+			}
+			$('.classA').css('color','white');	
+		}
+		,error  : function(xhr){
+	           alert(xhr.status + ':' + xhr.statusText)
+	           }
+	}) // ajax end 
+})
+
+</script>
+<style>
+ /* 웹 폰트 */
+     @font-face {
+         font-family: 'GoyangIlsan';
+         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangIlsan.woff") format('woff');
+         font-weight: normal;
+         font-style: normal;
+            }
+      /*default*/
+     * {
+                padding: 0;
+                margin: 0;
+                box-sizing:border-box;
+                text-decoration: none;
+                list-style: none;
+                color: #282c37;
+                font-family: 'GoyangIlsan';
+                list-style:none;
+            }
+	 /* Mdiv */
+	#Mdiv{width : 1024px; }
+ 	 /* body */
+ 	body{margin : 0px; padding : 0px;}
+	 
+	 /* header */
+	#header{height:80px; background-color : #282c37; text-align : center; color : white; line-height:80px;  }
+	h2{margin : 0 ; color : white; }
+	
+	div#accordian {width : 190px; height: calc(100vh - 70px); background-color:#282c37; float:left;}
+	div#accordian dt { padding: 10px; color : white; background-color : #282c37; }
+	
+	#Dlid{height:100%; width:100%; }
+	dt span { display: inline-block; width: 5px; height: 5px; background-color: #353535;
+    	vertical-align: middle; margin-right: 10px; }
+	
+	
+	
+ 
+</style>
+</head>
+<body>
+	<!-- header -->
+		<header id="header">
+        	<h2>PK전자 서비스 관리자 페이지</h2>               
+        </header>
+    <!-- navbar -->        
+  	<div id="accordian">	
+	  
+    </div>	
+	
+	
+
+</body>
+</html>

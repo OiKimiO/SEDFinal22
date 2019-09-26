@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EWork">
+	<resultMap id="eSchedule" type="com.pknufinal.ework.vo.EScheduleVO">
+		<result property="r_id"      column="R_ID"      javaType="string" />
+		<result property="f_time"    column="F_TIME"    javaType="string" />
+		<result property="m_name"    column="M_NAME"    javaType="string" />
+		<result property="m_tel"     column="M_TEL"     javaType="string" />
+		<result property="m_city"    column="M_CITY"    javaType="string" />
+		<result property="m_gugun"   column="M_GUGUN"   javaType="string" />
+		<result property="p_name"    column="P_NAME"    javaType="string" />
+	</resultMap>
+	
+	<resultMap id="eScheduleCont" type="com.pknufinal.ework.vo.EScheduleContVO">
+		<result property="r_id"      column="R_ID"      javaType="string" />
+		<result property="r_date"      column="R_DATE"      javaType="string" />
+		<result property="f_date"      column="F_DATE"      javaType="string" />
+		<result property="f_time"    column="F_TIME"    javaType="string" />
+		<result property="f_lname"    column="F_LNAME"    javaType="string" />
+		<result property="f_sname"    column="F_SNAME"    javaType="string" />
+		<result property="r_msg"    column="R_MSG"    javaType="string" />
+		<result property="m_name"    column="M_NAME"    javaType="string" />
+		<result property="m_tel"     column="M_TEL"     javaType="string" />
+		<result property="m_city"    column="M_CITY"    javaType="string" />
+		<result property="m_gugun"   column="M_GUGUN"   javaType="string" />
+		<result property="m_addr"   column="M_ADDR"   javaType="string" />
+		<result property="p_name"    column="P_NAME"    javaType="string" />
+	</resultMap>
+
+    <resultMap id="doingAS" type="com.pknufinal.ework.vo.EDoingASVO">
+		<result property="r_id"        column="R_ID"       javaType="string" />
+		<result property="f_date"      column="F_DATE"     javaType="string" />
+		<result property="f_time"      column="F_TIME"     javaType="string" />
+		<result property="m_name"      column="M_NAME"     javaType="string" />
+		<result property="m_tel"       column="M_TEL"      javaType="string" />
+		<result property="m_city"      column="M_CITY"     javaType="string" />
+		<result property="m_gugun"     column="M_GUGUN"    javaType="string" />
+		<result property="m_addr"      column="M_ADDR"     javaType="string" />
+		<result property="f_lname"     column="F_LNAME"    javaType="string" />
+		<result property="f_sname"     column="F_SNAME"    javaType="string" />
+		<result property="r_msg"       column="R_MSG"      javaType="string" />
+	</resultMap>
+	
+    <resultMap id="EWorkVO" type="com.pknufinal.ework.vo.EWorkVO">
+		<result property="s_num"        column="S_NUM"       javaType="string" />
+		<result property="fin_gbn"      column="FIN_GBN"     javaType="string" />
+	</resultMap>
+
+	<resultMap id="freeOrNot" type="com.pknufinal.ework.vo.ProductFreeVO">
+		<result property="freeornot"     column="FREEORNOT"     javaType="string" />
+		<result property="pa_name"     column="PA_NAME"     javaType="string" />
+	</resultMap>
+	
+	
+	<select id="SearchFreeOrNot" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pknufinal.ework.vo.EWorkVO">
+		{CALL PKG_EWORK.PROC_SEARCH_FREE_OR_NOT(
+		#{s_num,   mode=IN,   jdbcType=VARCHAR},
+		#{r_id,    mode=IN,   jdbcType=VARCHAR},
+		#{fin_gbn, mode=OUT,  jdbcType=VARCHAR}
+		)}
+	</select>
+	
+	<select id="eScheduleList" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pknufinal.ework.vo.EScheduleVO">
+		{CALL PKG_EWORK.PROC_ESCHEDULE_VIEW(
+		#{e_id,   mode=IN,  jdbcType=VARCHAR},
+		#{f_date, mode=IN,  jdbcType=VARCHAR},
+		#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=eSchedule}
+		)}
+	</select>
+	
+	<select id="eScheduleCont" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pknufinal.ework.vo.EScheduleContVO">
+		{CALL PKG_EWORK.PROC_ESCHEDULECONT_SELECT(
+		#{r_id,   mode=IN,  jdbcType=VARCHAR},
+		#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=eScheduleCont}
+		)}
+	</select>
+	
+	
+	<select id="doingAS" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pknufinal.ework.vo.EDoingASVO">
+		{CALL PKG_EWORK.PROC_DOINGAS(
+		#{e_id,     mode=IN,  jdbcType=VARCHAR},
+		#{r_id,     mode=IN,  jdbcType=VARCHAR},
+		#{result,   mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=doingAS}
+		)}
+	</select>
+	
+	<select id="freeOrNot" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pknufinal.ework.vo.ProductFreeVO">
+		{CALL PKG_EWORK.PROC_FREE_OR_NOT(
+		#{r_id,     mode=IN,  jdbcType=VARCHAR},
+		#{s_num,     mode=IN,  jdbcType=VARCHAR},
+		#{result,   mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=freeOrNot}
+		)}
+	</select>
+	
+	<select id="getPartsList" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pknufinal.ework.vo.ProductFreeVO">
+		{CALL PKG_EWORK.PROC_FINDPARTS(
+		#{p_name,     mode=IN,  jdbcType=VARCHAR},
+		#{result,   mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=freeOrNot}
+		)}
+	</select>
+	
+	<insert id="finishService" statementType="CALLABLE" parameterType="hashmap">
+		{CALL PKG_EWORK.PROC_FINISHSERVICE(
+		#{r_id,       mode=IN,  jdbcType=VARCHAR},
+		#{s_num,      mode=IN,  jdbcType=VARCHAR},
+		#{p_name,     mode=IN,  jdbcType=VARCHAR},
+		#{fin_gbn,    mode=IN,  jdbcType=VARCHAR},
+		#{pa_txt,     mode=IN,  jdbcType=VARCHAR},
+		#{fin_pri,    mode=IN,  jdbcType=VARCHAR},
+		#{fin_msg,    mode=IN,  jdbcType=VARCHAR}
+		)}
+	</insert>
+	<!-- <select id="EUserView" statementType="CALLABLE"
+		parameterType="hashmap" resultType="com.pknufinal.euser.vo.EUserVO">
+		{ CALL PKG_EUSER.PROC_EUSER_VIEW(
+		#{ e_id, mode=IN, jdbcType=VARCHAR },
+		#{ result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet,
+		resultMap = euserResult }
+		)}
+	</select> -->
+
+	<!-- <update id="EUserUpdate" statementType="CALLABLE"
+		parameterType="hashmap">
+		{ CALL PKG_EUSER.PROC_EUSER_UPDATE(
+		#{ e_id, mode=IN, jdbcType=VARCHAR },
+		#{ e_pwd3, mode=IN, jdbcType=VARCHAR }
+		)}
+	</update>
+ -->
+
+	<!-- select id="eviewMyPage" statementType="CALLABLE" parameterType="string" 
+		resultType="com.pknufinal.euser.vo.EUserVO"> {CALL PKG_EUSER.PROC_EUSER_SELECT( 
+		#{e_id, mode=IN, jdbcType=VARCHAR}, #{result, mode=OUT, jdbcType=CURSOR, 
+		javaType=ResultSet, resultMap=euserResult} )} </select> -->
+
+</mapper>

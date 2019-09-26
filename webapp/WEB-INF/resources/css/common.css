@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+/* 웹 폰트 */
+@font-face {
+	font-family: 'GoyangIlsan';
+	src:
+		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangIlsan.woff")
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* default 설정 */
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style: none;
+	color: #282c37;
+	font-family: 'GoyangIlsan';
+}
+
+html {font-size:10px}
+
+input {
+	border: none
+}
+
+/* #wrap {width:1024px} */
+
+.inwrap {width:80%;margin:0 auto}
+
+.inwrap table {width:100%;border-spacing:0px;}
+
+
+
+/* 각 페이지 인트로 */
+.intros {
+	position: relative;
+	width: 100%;
+	background-color: #eee;
+	height: 180px;
+	margin-bottom: 50px;
+}
+
+.intros>h3 {
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+	font-size: 2.5vw;
+}
+
+.intros>h3>span {
+	font-weight: normal;
+	font-size: 1.5vw
+}
+
+.mintro {
+	width:100%;
+	line-height:100px;
+	font-size:2.5rem;
+	font-weight:bold;
+	text-align:center;
+}

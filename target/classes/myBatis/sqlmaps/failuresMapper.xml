@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Failures">
+	
+	
+	
+	<select id="LFailuresChoice" 
+		parameterType="hashmap"
+		resultType="com.pkfinal.failures.vo.FailuresVo">
+		
+		SELECT DISTINCT(f_lname)
+		 FROM FAILURES T1, PRODUCT_CATEGORY T2
+		 WHERE T1.CATE_ID = T2.CATE_ID
+		 AND T2.CATE_NAME = #{cate_name}
+	</select>
+	
+	<select id="SFailuresChoice" 
+		parameterType="hashmap"
+		resultType="com.pkfinal.failures.vo.FailuresVo">
+		
+		SELECT *
+		 FROM FAILURES
+		 WHERE F_LNAME = #{f_lname}
+	</select>
+	
+
+</mapper>

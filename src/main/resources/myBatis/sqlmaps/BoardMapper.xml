@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+    <!-- 자료실 목록 리스트 resultMap -->
+    <resultMap id="BoardMap" type="com.pkfinal.board.vo.BoardVo">
+      <result property="idx"         column="IDX"        javaType="int" />
+      <result property="title"       column="TITLE"      javaType="string" />
+      <result property="cont"        column="CONT"       javaType="string" />
+      <result property="m_id"        column="M_ID"       javaType="string" />
+      <result property="regdate"     column="REGDATE"    javaType="string" />
+      <result property="bnum"        column="BNUM"       javaType="int" />
+      <result property="lvl"         column="LVL"        javaType="int" />
+      <result property="step"        column="STEP"       javaType="int" />
+      <result property="nref"        column="NREF"       javaType="int" />
+      <result property="delnum"      column="DELNUM"     		javaType="int" />
+      <result property="nowpage"     column="IN_NOW_PAGE"     javaType="int" />
+      <result property="pagegrpnum"  column="IN_PAGECOUNT"     javaType="int" />
+ 
+    </resultMap>
+    
+    <!-- 게시물 목록 보기 -->
+  	<select id="BoardList"  
+  	        statementType="CALLABLE"
+  	        parameterType="hashmap"
+  	        resultType="com.pkfinal.board.vo.BoardVo">
+  	  {CALL  PKG_BOARD.PROC_BOARD_LIST(
+  	  	  #{ nowpage,     mode=IN,  jdbcType= INTEGER},
+	 	  #{ pagecount,   mode=IN,  jdbcType= INTEGER},
+	 	  #{ totalcount,  mode=OUT, jdbcType= INTEGER},	
+  	      #{ result,       mode=OUT,  jdbcType=CURSOR, javaType=ResultSet, resultMap=BoardMap } 
+  	  )}      
+   	</select>
+   	
+   	<insert id="BoardInsert" 
+            statementType="CALLABLE"
+  	        parameterType="hashmap">
+     {CALL  PKG_BOARD.PROC_BOARD_INSERT(
+         #{ title,       mode = IN,    jdbcType=VARCHAR }
+       , #{ cont,        mode = IN,    jdbcType=VARCHAR }
+       , #{ m_id,        mode = IN,    jdbcType=VARCHAR }
+       , #{ bnum,        mode = IN,    jdbcType=INTEGER }
+       , #{ lvl,         mode = IN,    jdbcType=INTEGER }
+       , #{ step,        mode = IN,    jdbcType=INTEGER }
+       , #{ nref,        mode = IN,    jdbcType=INTEGER }
+       
+    
+     )}
+    </insert>
+    
+    <select id="BoardContent"
+    	statementType = "CALLABLE" 
+    	parameterType = "hashmap"
+    	resultType	  = "com.pkfinal.board.vo.BoardVo">
+      { CALL PKG_BOARD.PROC_BOARD_CONTENT(
+      	  #{ idx,		mode=IN,	jdbcType=INTEGER }, 
+      	  #{ result,	mode=OUT,	jdbcType=CURSOR, javaType=ResultSet, resultMap=BoardMap }
+      )}	
+    	
+   	</select>
+
+    
+    <delete id="BoardDelete"
+    	statementType="CALLABLE"
+    	parameterType="hashmap">
+      { CALL PKG_BOARD.PROC_BOARD_DELETE(
+      	  #{ idx,	mode=IN,	jdbcType=INTEGER }
+      )}	
+    </delete>
+    
+    <update id="BoardUpdate" 
+    	statementType="CALLABLE" 
+    	parameterType="hashmap">
+      { CALL PKG_BOARD.PROC_BOARD_UPDATE(
+      
+         #{ idx,	     mode = IN,    jdbcType=VARCHAR }
+       , #{ title,       mode = IN,    jdbcType=VARCHAR }
+       , #{ cont,        mode = IN,    jdbcType=VARCHAR }
+            
+      )}
+    </update>
+   	
+</mapper> 
