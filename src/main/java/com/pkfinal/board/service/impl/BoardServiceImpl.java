@@ -26,7 +26,7 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVo> getList(HashMap<String, Object> map) {
 		
 		
-		int pagecount	   = 1;		// 한페이지에 보여줄 리스트수
+		int pagecount	   = 10;		// 한페이지에 보여줄 리스트수
 		
 		
 		// db조회	
@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		System.out.println(map);	// nowpage, pageprnum, pagecount, totalcount
 
-		int pagetotalcount = 4;		// 현재 페이지 하단에 최대로 보여주고 싶은 페이지 번호의 갯수
+		int pagetotalcount = 10;		// 현재 페이지 하단에 최대로 보여주고 싶은 페이지 번호의 갯수
 		
 		// map : 기존 map + Mybatis에서 넘겨준 (out)정보 
 		// 조회된 이후 처리
